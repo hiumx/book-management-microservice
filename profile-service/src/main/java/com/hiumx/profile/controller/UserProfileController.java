@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Slf4j
 public class UserProfileController {
     UserProfileService userProfileService;
