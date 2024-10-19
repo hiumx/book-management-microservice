@@ -1,14 +1,16 @@
-package com.hiumx.profile.dto.request;
+package com.hiumx.identity.dto.request;
 
+import com.hiumx.identity.validator.DobConstraint;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserProfileCreationRequest {
     String userId;

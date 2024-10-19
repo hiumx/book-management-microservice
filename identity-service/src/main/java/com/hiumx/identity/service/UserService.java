@@ -2,15 +2,19 @@ package com.hiumx.identity.service;
 
 import com.hiumx.identity.constant.PredefinedRole;
 import com.hiumx.identity.dto.request.UserCreationRequest;
+import com.hiumx.identity.dto.request.UserProfileCreationRequest;
 import com.hiumx.identity.dto.request.UserUpdateRequest;
+import com.hiumx.identity.dto.response.UserProfileResponse;
 import com.hiumx.identity.dto.response.UserResponse;
 import com.hiumx.identity.entity.Role;
 import com.hiumx.identity.entity.User;
 import com.hiumx.identity.exception.AppException;
 import com.hiumx.identity.exception.ErrorCode;
 import com.hiumx.identity.mapper.UserMapper;
+import com.hiumx.identity.mapper.UserProfileMapper;
 import com.hiumx.identity.repository.RoleRepository;
 import com.hiumx.identity.repository.UserRepository;
+import com.hiumx.identity.repository.httpclient.ProfileClient;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,6 +36,8 @@ public class UserService {
     RoleRepository roleRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
+    ProfileClient profileClient;
+    UserProfileMapper userProfileMapper;
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -43,8 +49,19 @@ public class UserService {
         roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
 
         user.setRoles(roles);
+        user = userRepository.save(user);
 
-        return userMapper.toUserResponse(userRepository.save(user));
+        UserProfileCreationRequest profileRequest = userProfileMapper.toProfileCreationRequest(request);
+        profileRequest.setUserId(user.getId());
+
+        UserProfileResponse profileResponse = profileClient.createUserProfile(profileRequest);
+
+        UserResponse userResponse = userMapper.toUserResponse(user);
+        userResponse.setFirstName(profileResponse.getFirstName());
+        userResponse.setLastName(profileResponse.getLastName());
+        userResponse.setDob(profileResponse.getDob());
+
+        return userResponse;
     }
 
     public UserResponse getMyInfo() {
