@@ -9,6 +9,8 @@ import com.hiumx.profile.service.UserProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class UserProfileServiceImpl implements UserProfileService {
     UserProfileRepository userProfileRepository;
     UserProfileMapper userProfileMapper;
@@ -33,7 +36,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserProfileResponse> getAllUsers() {
+        log.info("RUNNING...");
         return userProfileRepository.findAll()
                 .stream().map(userProfileMapper::toUserProfileResponse)
                 .toList();
