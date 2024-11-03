@@ -1,4 +1,4 @@
-package com.hiumx.identity.configuration;
+package com.hiumx.profile.config;
 
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -10,12 +10,11 @@ import java.text.ParseException;
 
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
-
     @Override
     public Jwt decode(String token) throws JwtException {
+
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
-
             return new Jwt(
                     token,
                     signedJWT.getJWTClaimsSet().getIssueTime().toInstant(),
@@ -26,6 +25,5 @@ public class CustomJwtDecoder implements JwtDecoder {
         } catch (ParseException e) {
             throw new JwtException("Token invalid!");
         }
-
     }
 }
