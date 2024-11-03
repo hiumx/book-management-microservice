@@ -34,6 +34,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public List<UserProfileResponse> getAllUsers() {
-        return userProfileRepository.findAll().stream().map(userProfileMapper::toUserProfileResponse).toList();
+        return userProfileRepository.findAll()
+                .stream().map(userProfileMapper::toUserProfileResponse)
+                .toList();
     }
 }

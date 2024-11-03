@@ -1,5 +1,6 @@
 package com.hiumx.profile.controller;
 
+import com.hiumx.profile.dto.response.ApiResponse;
 import com.hiumx.profile.dto.response.UserProfileResponse;
 import com.hiumx.profile.service.UserProfileService;
 import lombok.AccessLevel;
@@ -27,7 +28,11 @@ public class UserProfileController {
     }
 
     @GetMapping
-    List<UserProfileResponse> getAllUsers() {
-        return userProfileService.getAllUsers();
+    ApiResponse<List<UserProfileResponse>> getAllUsers() {
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .code(1000)
+                .message("Get all user profile successfully")
+                .result(userProfileService.getAllUsers())
+                .build();
     }
 }
