@@ -1,12 +1,13 @@
 package com.hiumx.identity.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
 import com.hiumx.identity.dto.request.UserCreationRequest;
 import com.hiumx.identity.dto.request.UserUpdateRequest;
 import com.hiumx.identity.dto.response.UserResponse;
 import com.hiumx.identity.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

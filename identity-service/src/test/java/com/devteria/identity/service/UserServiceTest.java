@@ -1,13 +1,10 @@
 package com.devteria.identity.service;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.Optional;
-
+import com.hiumx.identity.dto.request.UserCreationRequest;
+import com.hiumx.identity.dto.response.UserResponse;
+import com.hiumx.identity.entity.User;
+import com.hiumx.identity.repository.UserRepository;
+import com.hiumx.identity.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,11 +14,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 
-import com.devteria.identity.dto.request.UserCreationRequest;
-import com.devteria.identity.dto.response.UserResponse;
-import com.devteria.identity.entity.User;
-import com.devteria.identity.exception.AppException;
-import com.devteria.identity.repository.UserRepository;
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
 
 @SpringBootTest
 @TestPropertySource("/test.properties")

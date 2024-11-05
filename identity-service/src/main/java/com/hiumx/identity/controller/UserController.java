@@ -1,18 +1,21 @@
 package com.hiumx.identity.controller;
 
+import java.util.List;
+
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.hiumx.identity.dto.request.ApiResponse;
 import com.hiumx.identity.dto.request.UserCreationRequest;
 import com.hiumx.identity.dto.request.UserUpdateRequest;
 import com.hiumx.identity.dto.response.UserResponse;
 import com.hiumx.identity.service.UserService;
-import jakarta.validation.Valid;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")

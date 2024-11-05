@@ -1,22 +1,24 @@
 package com.hiumx.identity.configuration;
 
-import com.hiumx.identity.constant.PredefinedRole;
-import com.hiumx.identity.entity.Role;
-import com.hiumx.identity.entity.User;
-import com.hiumx.identity.repository.RoleRepository;
-import com.hiumx.identity.repository.UserRepository;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashSet;
+
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashSet;
+import com.hiumx.identity.constant.PredefinedRole;
+import com.hiumx.identity.entity.Role;
+import com.hiumx.identity.entity.User;
+import com.hiumx.identity.repository.RoleRepository;
+import com.hiumx.identity.repository.UserRepository;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @RequiredArgsConstructor
