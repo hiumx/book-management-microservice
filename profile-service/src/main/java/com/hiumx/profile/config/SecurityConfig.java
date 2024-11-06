@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig {
 
-    String[] PUBLIC_ENDPOINTS = {};
+    String[] PUBLIC_ENDPOINTS = { "/internal/users" };
 
     CustomJwtDecoder customJwtDecoder;
 
