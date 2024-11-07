@@ -1,0 +1,15 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /notification
+
+spring:
+  application:
+    name: notification-service
+  data:
+    mongodb:
+      uri: mongodb://root:root1234@localhost:27017/notification?authSource=admin
+
+app:
+  email:
+    api-key: ${EMAIL_API_KEY}
