@@ -2,6 +2,7 @@ package com.hiumx.identity.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

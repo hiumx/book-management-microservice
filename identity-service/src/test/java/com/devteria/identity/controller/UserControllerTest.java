@@ -2,9 +2,6 @@ package com.devteria.identity.controller;
 
 import java.time.LocalDate;
 
-import com.hiumx.identity.dto.request.UserCreationRequest;
-import com.hiumx.identity.dto.response.UserResponse;
-import com.hiumx.identity.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -21,6 +18,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.hiumx.identity.dto.request.UserCreationRequest;
+import com.hiumx.identity.dto.response.UserResponse;
+import com.hiumx.identity.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 

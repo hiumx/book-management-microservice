@@ -1,10 +1,11 @@
 package com.hiumx.identity.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import com.hiumx.identity.dto.request.RoleRequest;
 import com.hiumx.identity.dto.response.RoleResponse;
 import com.hiumx.identity.entity.Role;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {

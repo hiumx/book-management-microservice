@@ -1,16 +1,18 @@
 package com.hiumx.identity.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.hiumx.identity.dto.request.ApiResponse;
 import com.hiumx.identity.dto.request.PermissionRequest;
 import com.hiumx.identity.dto.response.PermissionResponse;
 import com.hiumx.identity.service.PermissionService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/permissions")

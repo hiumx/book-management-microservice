@@ -1,18 +1,20 @@
 package com.hiumx.identity.service;
 
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.hiumx.identity.dto.request.RoleRequest;
 import com.hiumx.identity.dto.response.RoleResponse;
 import com.hiumx.identity.mapper.RoleMapper;
 import com.hiumx.identity.repository.PermissionRepository;
 import com.hiumx.identity.repository.RoleRepository;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

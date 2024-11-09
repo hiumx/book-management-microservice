@@ -1,11 +1,13 @@
 package com.hiumx.identity.dto.request;
 
-import com.hiumx.identity.validator.DobConstraint;
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Size;
+
+import com.hiumx.identity.validator.DobConstraint;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor

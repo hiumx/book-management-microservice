@@ -1,5 +1,13 @@
 package com.hiumx.identity.service;
 
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.hiumx.identity.constant.PredefinedRole;
 import com.hiumx.identity.dto.request.UserCreationRequest;
 import com.hiumx.identity.dto.request.UserProfileCreationRequest;
@@ -15,17 +23,11 @@ import com.hiumx.identity.mapper.UserProfileMapper;
 import com.hiumx.identity.repository.RoleRepository;
 import com.hiumx.identity.repository.UserRepository;
 import com.hiumx.identity.repository.httpclient.ProfileClient;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
