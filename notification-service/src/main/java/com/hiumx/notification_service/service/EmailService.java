@@ -30,6 +30,9 @@ public class EmailService {
     String apiKey;
 
     public EmailResponse sendEmail(SendEmailRequest request) {
+        String subject = "Register successfully";
+        String htmlContent =
+                "<h1>Welcome to Book Microservice system</h1></br><p style='color: blue;'>This is content of message</p>";
         EmailRequest emailRequest = EmailRequest.builder()
                 .sender(
                         EmailSender.builder()
@@ -38,11 +41,11 @@ public class EmailService {
                                 .build()
                 )
                 .to(Set.of(request.getTo()))
-                .subject(request.getSubject())
-                .htmlContent(request.getHtmlContent())
+                .subject(subject)
+                .htmlContent(htmlContent)
                 .build();
 
-        log.info(emailRequest.toString());
+        log.info(request.toString());
         log.info("API KEY: {}", apiKey);
         try {
             return emailClient.sendEmail(apiKey, emailRequest);
