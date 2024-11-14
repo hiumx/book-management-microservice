@@ -7,8 +7,9 @@ import com.hiumx.notification_service.service.EmailService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,16 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/email")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class EmailController {
 
     EmailService emailService;
 
-    @PostMapping("/send")
-    ApiResponse<EmailResponse> sendEmail(@RequestBody SendEmailRequest request) {
+    @PostMapping("/email")
+    ApiResponse<EmailResponse> sendEmail(SendEmailRequest request) {
+        log.info("Send email request: {}", request.toString());
         return ApiResponse.<EmailResponse>builder()
                 .code(1000)
                 .message("Send email successfully")
                 .result(emailService.sendEmail(request))
                 .build();
     }
+
 }

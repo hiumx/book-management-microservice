@@ -3,15 +3,15 @@ package com.hiumx.identity.service;
 import java.util.HashSet;
 import java.util.List;
 
+import com.hiumx.event.dto.NotificationEvent;
+import com.hiumx.identity.dto.request.*;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hiumx.identity.constant.PredefinedRole;
-import com.hiumx.identity.dto.request.UserCreationRequest;
-import com.hiumx.identity.dto.request.UserProfileCreationRequest;
-import com.hiumx.identity.dto.request.UserUpdateRequest;
 import com.hiumx.identity.dto.response.UserProfileResponse;
 import com.hiumx.identity.dto.response.UserResponse;
 import com.hiumx.identity.entity.Role;
@@ -40,6 +40,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     ProfileClient profileClient;
     UserProfileMapper userProfileMapper;
+    KafkaTemplate<String, Object> kafkaTemplate;
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -57,6 +58,15 @@ public class UserService {
         profileRequest.setUserId(user.getId());
 
         UserProfileResponse profileResponse = profileClient.createUserProfile(profileRequest);
+
+        NotificationEvent notificationEvent = NotificationEvent.builder()
+                .chanel("EMAIL")
+                .receiver(request.getEmail())
+                .subject("Welcome to my book website")
+                .content("<p>Welcome <b style='color: blue;'>"+ request.getUsername() +"</b>. Thanks for registration to my website.</p>")
+                .build();
+
+        kafkaTemplate.send("notification-topic", notificationEvent);
 
         UserResponse userResponse = userMapper.toUserResponse(user);
         userResponse.setFirstName(profileResponse.getFirstName());
