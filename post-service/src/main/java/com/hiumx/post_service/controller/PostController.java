@@ -2,15 +2,13 @@ package com.hiumx.post_service.controller;
 
 import com.hiumx.post_service.dto.request.PostRequest;
 import com.hiumx.post_service.dto.response.ApiResponse;
+import com.hiumx.post_service.dto.response.PageResponse;
 import com.hiumx.post_service.dto.response.PostResponse;
 import com.hiumx.post_service.service.PostService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,11 +28,14 @@ public class PostController {
     }
 
     @GetMapping("/my-post")
-    public ApiResponse<List<PostResponse>> getMyPosts() {
-        return ApiResponse.<List<PostResponse>>builder()
+    public ApiResponse<PageResponse<PostResponse>> getMyPosts(
+            @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize
+    ) {
+        return ApiResponse.<PageResponse<PostResponse>>builder()
                 .code(1000)
                 .message("Create new post successfully")
-                .result(postService.getMyPosts())
+                .result(postService.getMyPosts(page, pageSize))
                 .build();
     }
 }

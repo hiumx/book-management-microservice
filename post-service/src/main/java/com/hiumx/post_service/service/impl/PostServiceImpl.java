@@ -1,6 +1,7 @@
 package com.hiumx.post_service.service.impl;
 
 import com.hiumx.post_service.dto.request.PostRequest;
+import com.hiumx.post_service.dto.response.PageResponse;
 import com.hiumx.post_service.dto.response.PostResponse;
 import com.hiumx.post_service.entity.Post;
 import com.hiumx.post_service.mapper.PostMapper;
@@ -10,6 +11,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -41,9 +46,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostResponse> getMyPosts() {
+    public PageResponse<PostResponse> getMyPosts(int page, int pageSize) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return postRepository.findByUserId(authentication.getName())
-                .stream().map(postMapper::toPostResponse).toList();
+
+        Sort sort = Sort.by("createdDate").descending();
+        Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
+
+        Page<Post> posts = postRepository.findByUserId(authentication.getName(), pageable);
+
+
+        return PageResponse.<PostResponse>builder()
+                .currentPage(page)
+                .pageSize(pageSize)
+                .totalPage(posts.getTotalPages())
+                .totalElements(posts.getTotalElements())
+                .data(posts.getContent().stream().map(postMapper::toPostResponse).toList())
+                .build();
     }
 }
