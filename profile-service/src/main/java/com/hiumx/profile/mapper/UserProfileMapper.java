@@ -9,6 +9,5 @@ import com.hiumx.profile.entity.UserProfile;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
     UserProfile toUserProfile(UserProfileCreationRequest request);
-
     UserProfileResponse toUserProfileResponse(UserProfile userProfile);
 }

@@ -22,14 +22,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig {
 
-    String[] PUBLIC_ENDPOINTS = { "/internal/users" };
+    String[] PUBLIC_ENDPOINTS = { "/internal/users", "/internal/users/**" };
 
     CustomJwtDecoder customJwtDecoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(req -> req.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
+        http.authorizeHttpRequests(req -> req.requestMatchers(PUBLIC_ENDPOINTS)
                 .permitAll()
                 .anyRequest()
                 .authenticated());

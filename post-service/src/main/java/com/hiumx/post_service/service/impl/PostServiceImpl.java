@@ -3,9 +3,11 @@ package com.hiumx.post_service.service.impl;
 import com.hiumx.post_service.dto.request.PostRequest;
 import com.hiumx.post_service.dto.response.PageResponse;
 import com.hiumx.post_service.dto.response.PostResponse;
+import com.hiumx.post_service.dto.response.UserProfileResponse;
 import com.hiumx.post_service.entity.Post;
 import com.hiumx.post_service.mapper.PostMapper;
 import com.hiumx.post_service.repository.PostRepository;
+import com.hiumx.post_service.repository.httpclient.ProfileClient;
 import com.hiumx.post_service.service.PostService;
 import com.hiumx.post_service.util.DateTimeFormatter;
 import lombok.AccessLevel;
@@ -31,6 +33,7 @@ public class PostServiceImpl implements PostService {
     PostRepository postRepository;
     PostMapper postMapper;
     DateTimeFormatter dateTimeFormatter;
+    ProfileClient profileClient;
 
     @Override
     public PostResponse createPost(PostRequest request) {
@@ -56,8 +59,12 @@ public class PostServiceImpl implements PostService {
 
         Page<Post> posts = postRepository.findByUserId(authentication.getName(), pageable);
 
+        UserProfileResponse profileResponse = profileClient.getProfileByUserId(authentication.getName());
+
+        String username = String.format("%s %s", profileResponse.getFirstName(), profileResponse.getLastName());
         List<PostResponse> postResponses = posts.getContent().stream().map(post -> {
             PostResponse postResponse = postMapper.toPostResponse(post);
+            postResponse.setUsername(username);
             postResponse.setElapseTime(dateTimeFormatter.format(post.getCreatedDate()));
             return postResponse;
         }).toList();
